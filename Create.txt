@@ -1,0 +1,9 @@
+Create : New & Create Route
+
+
+New route
+
+GET   /listing/new  ---> form ---> submit --->
+  create route
+
+POST   /listings   //new listing create

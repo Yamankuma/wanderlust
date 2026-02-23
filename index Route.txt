@@ -1,0 +1,3 @@
+Index Route
+
+GET     /Listings --->all Listings

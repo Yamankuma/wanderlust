@@ -1,0 +1,6 @@
+Read : Show Route
+
+CRUD --> Read operation
+
+
+GET    /Listings/:id ---> all data

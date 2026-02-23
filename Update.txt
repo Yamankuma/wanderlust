@@ -1,0 +1,5 @@
+Update: Edit & Update Route
+
+GET      /listing/:id/edit  ----> edit form -->submit --->
+
+PUt /listings/:id 

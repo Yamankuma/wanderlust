@@ -1,0 +1,7 @@
+Getting Started :-->
+
+1. Database Set Up
+2. REST Apis for CRUD
+
+
+Setting up

@@ -1,0 +1,83 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="main-container">
+<div class="row justify-content-center mt-5 ">
+  <div class="col-8 offset-2">
+    <h3><b><%= listing.title %></b></h3>
+  </div>
+
+  <div class="col-6 mt-3">
+    <div class="card listing-card">
+      <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing image">
+
+      <div class="card-body">
+        <p class="card-text">
+         Owner:  <%= listing.owner.username %><br>
+          <%= listing.description %><br>
+          ₹<%= listing.price.toLocaleString("en-IN") %><br>
+          <%= listing.location %><br>
+          <%= listing.country %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+     
+<div class="row justify-content-center my-5">
+  <div class="col-6 d-flex justify-content-center gap-3">
+      <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+    <form method="get" action="/listings/<%= listing._id %>/edit">
+      <button class="btn btn-dark btn-edit">Edit</button>
+    </form>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+      <button class="btn btn-dark btn-delete">Delete</button>
+    </form>
+    <% } %>
+  </div>
+
+  <br><br>
+<% if(currUser) {%>
+  <hr class="custom-hr"/>
+  <div class="col-8 offset-2 mb-3">
+     <h4>Leave a Review</h4>
+     <form method="post" action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation">
+      <div class="mb-3 mt-3">
+        <label for="rating" class="form-label form-range">Rating</label>
+        <input class="form-control" type="range" min="1" max="5" id="rating" name="review[rating]">
+      </div>
+       <div class="mb-3 mt-3">
+      <label for="comment" class="form-label">Comments</label>
+      <textarea cols="30" rows="5" class="form-control" name="review[comment]" id="comment" required></textarea>
+       <div class="invalid-feedback">Please Submit some comments</div>
+    </div>
+       <button class="btn btn-outline-dark">Submit</button>
+     </form>
+  </div>
+  <% } %>
+    <hr class="custom-hr"/>
+    
+   <div class="justify-content-center offset-6">
+    <p><b>All Reviews</b></p>
+   </div>
+     <div class="row justify-content-center offset-2">
+     <% for(review of listing.reviews){ %>
+       <div class="card col-4 ms-3 mb-3">
+          <div class="card-body">
+            <h5 class="card-title">@<%= review.author.username %></h5>
+            <p class="card-text"><%= review.comment %></p>
+            <p class="card-text"><%= review.rating %></p>
+          </div>
+          <form class="mb-3" method="post"  action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+            <button  class="btn btn-sm btn-dark">Delete</button>
+          </form>
+           </div>
+       
+      <% } %>
+      </div>
+      
+</div>
+
+    </div>
+
