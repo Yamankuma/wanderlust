@@ -6,13 +6,15 @@ const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
 const { renderSignupForm, signup, renderLoginForm, login, logout } = require("../controllers/users.js");
 
-router.get("/signup",renderSignupForm)
+router
+.route("/signup")
+.get(renderSignupForm)
+.post( wrapAsync(signup))
 
-router.post("/signup", wrapAsync(signup))
-
-router.get("/login", renderLoginForm)
-
-router.post("/login",saveRedirectUrl, passport.authenticate("local", {failureRedirect: '/login', failureFlash: true}), login)//agar ham direct login
+router
+.route("/login")
+.get( renderLoginForm)
+.post(saveRedirectUrl, passport.authenticate("local", {failureRedirect: '/login', failureFlash: true}), login)//agar ham direct login
 //karte hai to page not found aayega
 //jab hamara isLoggedIn middleware trigger nhi hota
 //isliye ye line hai let redirectUrl = res.locals.redirectUrl || '/listings';

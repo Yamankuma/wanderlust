@@ -14,9 +14,13 @@ body{
 .navbar {
     height: 5rem;
     background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
 }
 
-.fa-solid {
+.fa-compass {
     color: red;
     font-size: 2rem;
 }
@@ -117,16 +121,69 @@ body{
 
 }
 
-.custom-hr{
+/* .custom-hr{
    
     position: relative;
     left: 113px;
     width: 66% !important;
+} */
+
+.custom-hr{
+    width: 100%;
 }
 
+/* 
 .main-container{
     position: relative;
     right: 133px;
+} */
+
+.main-container{
+    padding: 0 15px;
 }
 
+/* #map{
+    height: 400px;
+    width: 100vh;
+} */
 
+#map{
+    height: 400px;
+    width: 100%;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  #map{
+    height: 250px;
+    width: 280px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  #map{
+    height: 250px;
+  }
+}
+
+/* Very small phones (400px) */
+@media (max-width: 400px){
+
+  h3{
+    font-size: 20px;
+  }
+
+  .show-img{
+    height: 200px;
+  }
+
+  .card-body{
+    font-size: 14px;
+  }
+
+  #map{
+    height: 200px;
+  }
+
+}

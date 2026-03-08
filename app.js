@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV != "production"){
+require('dotenv').config();
+}
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -8,6 +13,7 @@ const ExpressError = require("./utils/ExpressError.js")
 const listings = require("./routes/listing.js")
 const reviews = require("./routes/review.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -21,9 +27,20 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate)
 app.use(express.static(path.join(__dirname, "/public")))
+let dbUrl = process.env.ATLASDB_URL;
+
+const store =MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 3600,
+})
+
+store.on("error", (err)=>{
+    console.log("ERROR in MONGO SESSION STORE", err);
+})
 
 const sessionOption = {
-    secret: "mysupersecretcode",
+    store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized : true,
     cookie: {
@@ -32,7 +49,11 @@ const sessionOption = {
         httpOnly: true, //security purpose k liye
         
     }
-}
+};
+
+
+
+
 app.use(session(sessionOption));
 app.use(flash());
 
@@ -55,8 +76,10 @@ passport.deserializeUser(User.deserializeUser());
 //unstore ya remove karte hai apne session se 
 //ek sbhar chala gya to hata dege
 
+
 const main = async ()=>{
-     await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    //  await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    await mongoose.connect(dbUrl);
 }
 main().then(()=>{
     console.log("connected");
@@ -65,9 +88,9 @@ main().then(()=>{
 })
 
 
-app.get("/",(req, res)=>{
-    res.send("working...");
-})
+// app.get("/",(req, res)=>{
+//     res.send("working...");
+// })
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
