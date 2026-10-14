@@ -2,7 +2,7 @@ const Listing = require("../models/listing.js");
 
 module.exports.index = async (req, res)=>{
   const allListing = await Listing.find({});
-  condole.log("Total Listing", allListing.length);
+  console.log("Total Listing", allListing.length);
    res.render("listings/index", {allListing});
 } 
 
