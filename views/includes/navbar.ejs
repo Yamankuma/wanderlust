@@ -63,7 +63,7 @@
             <li class="nav-item">
           <a class="nav-link" href="/listings/new">Airbnb your home</a>
         </li>
-        <% if(!currUser){ %>
+        <% if(!locals.currUser){ %>
 
         <li class="nav-item">
           <a class="nav-link" href="/signup"><b>Sign up</b></a>
@@ -75,7 +75,7 @@
 
         <% } %>
 
-        <% if(currUser){ %>
+        <% if(locals.currUser){ %>
 
         <li class="nav-item">
           <a class="nav-link" href="/logout"><b>Logout</b></a>
@@ -118,7 +118,7 @@
         <a class="nav-link" href="/listings/new">Airbnb your home</a>
       </li>
 
-      <% if(!currUser){ %>
+      <% if(!locals.currUser){ %>
 
       <li class="nav-item">
         <a class="nav-link" href="/signup"><b>Sign up</b></a>
@@ -130,7 +130,7 @@
 
       <% } %>
 
-      <% if(currUser){ %>
+      <% if(locals.currUser){ %>
 
       <li class="nav-item">
         <a class="nav-link" href="/logout"><b>Logout</b></a>
